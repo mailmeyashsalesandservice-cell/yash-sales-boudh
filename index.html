@@ -85,7 +85,7 @@
       <!-- Hero showcase banner -->
       <div class="hero-frame">
         <div class="frame-glare"></div>
-        <img src="./images/hero-range.png" alt="NIJ Electric Scooter Range - Full Lineup" class="hero-img" id="heroImg">
+        <img src="./images/hero-range.png" alt="NIJ Electric Scooter Range - Full Lineup" class="hero-img" id="heroImg" decoding="async">
       </div>
 
       <div class="hero-warranty">
@@ -369,7 +369,7 @@
     <button class="modal-close" id="modalClose" aria-label="Close">&#215;</button>
     <div class="modal-inner">
       <div class="modal-head">
-        <img id="modalImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+        <img id="modalImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" decoding="async">
         <div class="modal-info">
           <h2 id="modalName">NIJ Model</h2>
           <p id="modalBrandTag" class="muted">NIJ &bull; Electric Scooter</p>
@@ -561,6 +561,8 @@
     }
 
     function colorPickerHtml(colors, note, label) {
+      // A single-colour model has nothing to switch, so don't render a lone dot.
+      if (!colors || colors.length < 2) return '';
       return '<div class="color-picker">' +
         '<div class="color-dots" role="group" aria-label="' + escapeHtml(label) + '">' +
           colorDotsHtml(colors, note, 0) +
@@ -570,21 +572,38 @@
     }
 
     // Smoothly cross-fade a scooter photo to another colour image.
+    // A token per <img> makes rapid clicks safe: only the latest click may
+    // update the photo, even if an earlier image finishes loading later.
     function swapImage(img, src) {
-      if (!img || !src || img.getAttribute('src') === src) return;
+      if (!img || !src) return;
+      var token = (img._swapToken || 0) + 1;
+      img._swapToken = token;
+
+      // Cancel any pending swap when the chosen colour is already displayed.
+      if (img.getAttribute('src') === src) {
+        img.classList.remove('is-swapping');
+        return;
+      }
+
+      var applied = false;
+      function apply() {
+        if (applied || img._swapToken !== token) return;
+        applied = true;
+        img.src = src;
+        img.classList.remove('is-swapping');
+      }
+
       var preload = new Image();
       preload.onload = function () {
+        if (img._swapToken !== token) return;
         img.classList.add('is-swapping');
-        window.requestAnimationFrame(function () {
-          img.src = src;
-          window.requestAnimationFrame(function () { img.classList.remove('is-swapping'); });
-        });
+        if (window.requestAnimationFrame) window.requestAnimationFrame(apply);
+        else apply();
+        // Fallback for throttled/background tabs where rAF can be delayed.
+        window.setTimeout(apply, 120);
       };
       // Still swap on error, so a bad path is visible instead of silently ignored.
-      preload.onerror = function () {
-        img.classList.remove('is-swapping');
-        img.src = src;
-      };
+      preload.onerror = apply;
       preload.src = src;
     }
 
@@ -618,7 +637,7 @@
 
         card.innerHTML =
           '<div class="card-img-wrap">' +
-            '<img src="' + escapeHtml(colors[0].image) + '" alt="' + escapeHtml(scooter.name + ' in ' + colors[0].name) + '" class="card-img">' +
+            '<img src="' + escapeHtml(colors[0].image) + '" alt="' + escapeHtml(scooter.name + ' in ' + colors[0].name) + '" class="card-img" decoding="async">' +
           '</div>' +
           '<div class="card-body">' +
             '<h3 class="card-name">' + escapeHtml(scooter.name) + '</h3>' +
@@ -710,6 +729,10 @@
       var selectedColor = 0;
       var current = scooter.defaultVariant;
 
+      // Single-colour models have no swatches to show in the detail view.
+      var colorPickerEl = modal.querySelector('.modal-colors');
+      if (colorPickerEl) colorPickerEl.style.display = colors.length > 1 ? '' : 'none';
+
       var modalImg = $('#modalImg');
       modalImg.classList.remove('is-swapping');
       modalImg.src = colors[0].image;
@@ -742,7 +765,7 @@
       });
 
       var cd = $('#modalColors');
-      cd.innerHTML = colorDotsHtml(colors, scooter.colorNote, 0);
+      cd.innerHTML = colors.length > 1 ? colorDotsHtml(colors, scooter.colorNote, 0) : '';
       var modalColorName = $('#modalColorName');
       modalColorName.textContent = colors[0].name;
       $$('.color-dot', cd).forEach(function (dot) {
