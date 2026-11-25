@@ -20,14 +20,13 @@ const SCOOTERS = [
     id: "nij-r14",
     brand: "NIJ",
     name: "NIJ R 14",
-    image: "./images/r14-red.png",
+    image: "./images/r14-black.jpg",
     variants: [
       { label: "48V 25Ah", volts: 48, ah: 25, range: "45-50 km", price: 65000 },
       { label: "48V 30Ah", volts: 48, ah: 30, range: "55-60 km", price: 70000 }
     ],
     defaultVariant: 0,
     colors: [
-      { name: "Red", hex: "#c0392b", image: "./images/r14-red.png" },
       { name: "Black", hex: "#1a1a1a", image: "./images/r14-black.jpg" },
       { name: "Blue", hex: "#1d5ed5", image: "./images/r14-blue.jpg" },
       { name: "Green", hex: "#2e9e4a", image: "./images/r14-green.jpg" },
@@ -50,17 +49,17 @@ const SCOOTERS = [
     id: "nij-accelero",
     brand: "NIJ",
     name: "NIJ ACCELERO+",
-    image: "./images/accelero-plus.png",
+    image: "./images/accelero-powder-blue.jpg",
     variants: [
       { label: "48V 25Ah", volts: 48, ah: 25, range: "45-50 km", price: 68000 },
       { label: "48V 30Ah", volts: 48, ah: 30, range: "55-60 km", price: 72000 }
     ],
     defaultVariant: 0,
     colors: [
-      { name: "Matte Green", hex: "#2e7d32", image: "./images/accelero-purple.png" },
-      { name: "Blue", hex: "#1d5ed5", image: "./images/accelero+-blue.png" },
-      { name: "Red", hex: "#c0392b", image: "./images/accelero-red.png" },
-      { name: "Maroon", hex: "#7a1c2e", image: "./images/accelero-plus.png" }
+      { name: "Powder Blue", hex: "#9dc5d8", image: "./images/accelero-powder-blue.jpg" },
+      { name: "Blue", hex: "#1d5ed5", image: "./images/accelero-blue.jpg" },
+      { name: "Matte Green", hex: "#2e7d32", image: "./images/accelero-green.jpg" },
+      { name: "Red", hex: "#c0392b", image: "./images/accelero-red.png" }
     ],
     colorNote: null,
     brakes: "Front Disc / Rear Drum",
@@ -77,19 +76,19 @@ const SCOOTERS = [
     id: "nij-n9",
     brand: "NIJ",
     name: "NIJ N9",
-    image: "./images/n9-black.png",
+    image: "./images/n9-black.webp",
     variants: [
       { label: "60V 25Ah", volts: 60, ah: 25, range: "60-70 km", price: 75000 },
       { label: "60V 30Ah", volts: 60, ah: 30, range: "70-80 km", price: 80000 }
     ],
     defaultVariant: 0,
     colors: [
-      { name: "Black", hex: "#1a1a1a", image: "./images/n9-black.png" },
+      { name: "Black", hex: "#1a1a1a", image: "./images/n9-black.webp" },
       { name: "Blue", hex: "#1d5ed5", image: "./images/n9-blue.jpg" },
-      { name: "Deep Green", hex: "#0e5a3a", image: "./images/n9-green.png" },
-      { name: "Navy Blue", hex: "#14264d", image: "./images/n9-navy.png" },
+      { name: "Deep Green", hex: "#0e5a3a", image: "./images/n9-green.webp" },
+      { name: "Navy Blue", hex: "#14264d", image: "./images/n9-navy.webp" },
       { name: "Red", hex: "#c0392b", image: "./images/n9-red.png" },
-      { name: "Silver", hex: "#b9c0c9", image: "./images/n9-silver.png" }
+      { name: "Silver", hex: "#b9c0c9", image: "./images/n9-silver.webp" }
     ],
     colorNote: null,
     brakes: "Double Disc (Front & Rear Disc)",
@@ -114,8 +113,8 @@ const SCOOTERS = [
     defaultVariant: 0,
     colors: [
       { name: "Black", hex: "#1a1a1a", image: "./images/captiva-5g-black.png" },
-      { name: "Blue", hex: "#1d5ed5", image: "./images/captiva-5g-blue.png" },
-      { name: "Green", hex: "#2e9e4a", image: "./images/captiva-5g-green.png" },
+      { name: "Blue", hex: "#1d5ed5", image: "./images/captiva-5g-blue.jpg" },
+      { name: "Green", hex: "#2e9e4a", image: "./images/captiva-5g-green.jpg" },
       { name: "Silver", hex: "#b9c0c9", image: "./images/captiva-5g-silver.png" },
       { name: "White", hex: "#f5f5f5", image: "./images/captiva-5g-white.png" }
     ],
@@ -171,9 +170,11 @@ const SCOOTERS = [
     colors: [
       { name: "Maroon", hex: "#7b1f2e", image: "./images/iq-maroon.png" },
       { name: "White", hex: "#f5f5f5", image: "./images/iq-white.png" },
-      { name: "Black", hex: "#1a1a1a", image: "./images/iq-black.png" }
+      { name: "Black", hex: "#1a1a1a", image: "./images/iq-black.png" },
+      { name: "Bronze", hex: "#8f6b3c", image: "./images/iq-bronze.jpg" },
+      { name: "Silver", hex: "#b9c0c9", image: "./images/iq-silver.jpg" }
     ],
-    colorNote: "Dual Tone",
+    colorNote: null,
     brakes: "Double Disc (Front & Rear Disc)",
     tyres: "Front 90/90-12, Rear 90/90-12 Tubeless Alloy",
     kerbWeight: "86 kg",
@@ -196,11 +197,11 @@ const SCOOTERS = [
     defaultVariant: 0,
     colors: [
       { name: "Black", hex: "#1a1a1a", image: "./images/lc-black.png" },
-      { name: "Blue", hex: "#1d5ed5", image: "./images/lc-blue.png" },
-      { name: "Maroon", hex: "#7b1f2e", image: "./images/lc-maroon.png" },
-      { name: "White", hex: "#f5f5f5", image: "./images/lc-white.png" }
+      { name: "Blue", hex: "#1d5ed5", image: "./images/lc-blue.webp" },
+      { name: "Maroon", hex: "#7b1f2e", image: "./images/lc-maroon.webp" },
+      { name: "White", hex: "#f5f5f5", image: "./images/lc-white.webp" }
     ],
-    colorNote: "Dual Tone",
+    colorNote: null,
     brakes: "Double Disc (Front & Rear Disc)",
     tyres: "Front 90/90-12, Rear 90/90-12 Tubeless Alloy",
     kerbWeight: "88 kg",
